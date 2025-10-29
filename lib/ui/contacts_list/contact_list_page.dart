@@ -39,7 +39,7 @@ class _ContactListPageState extends State<ContactListPage> {
             context,
           ).push(MaterialPageRoute(builder: (context) => ContactCreatePage()));
         },
-        child: Icon(Icons.add),
+        child: Icon(Icons.person_add),
       ),
     );
   }

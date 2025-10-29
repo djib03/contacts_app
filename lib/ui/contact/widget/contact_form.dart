@@ -120,14 +120,11 @@ class _ContactFormState extends State<ContactForm> {
   }
 
   String? _validatePhoneNumber(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Le numéro de téléphone est requis';
-    }
     // Regex for phone number validation (simple version)
     final phoneRegex = RegExp(
       r'^\+?\d{1,3}[ .-]?\(?\d{1,4}\)?([ .-]?\d{2,4}){2,4}$',
     );
-    if (!phoneRegex.hasMatch(value)) {
+    if (!phoneRegex.hasMatch(value!)) {
       return 'Le numéro de téléphone n\'est pas valide';
     }
     return null;
