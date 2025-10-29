@@ -137,6 +137,7 @@ class _ContactFormState extends State<ContactForm> {
         name: _name!,
         email: _email!,
         phoneNumber: _phoneNumber!,
+        isFavorite: widget.editedContact!.isFavorite,
       );
 
       if (isEditing) {

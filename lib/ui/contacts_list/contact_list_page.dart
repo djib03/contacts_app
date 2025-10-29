@@ -17,7 +17,7 @@ class _ContactListPageState extends State<ContactListPage> {
     final contactModel = Provider.of<ContactModel>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Contacts"),
+        title: const Text("Contacts", style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.teal,
       ),
       body: ListView.builder(
@@ -39,7 +39,7 @@ class _ContactListPageState extends State<ContactListPage> {
             context,
           ).push(MaterialPageRoute(builder: (context) => ContactCreatePage()));
         },
-        child: Icon(Icons.person_add),
+        child: Icon(Icons.person_add, color: Colors.white),
       ),
     );
   }

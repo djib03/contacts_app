@@ -30,9 +30,12 @@ class ContactModel extends ChangeNotifier {
 
   void addContact(Contact contact) {
     _contacts.add(contact);
-
     sortContacts();
+    notifyListeners();
+  }
 
+  void deleteContact(int index) {
+    _contacts.removeAt(index);
     notifyListeners();
   }
 

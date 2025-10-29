@@ -6,7 +6,7 @@ class ContactEditPage extends StatelessWidget {
   final Contact editedContact;
   final int editedContactIndex;
 
-  ContactEditPage({
+  const ContactEditPage({
     super.key,
     required this.editedContact,
     required this.editedContactIndex,
