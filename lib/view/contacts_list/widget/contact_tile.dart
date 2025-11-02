@@ -1,5 +1,6 @@
 import 'package:contacts_app/data/contact.dart';
 import 'package:contacts_app/model/contact_model.dart';
+import 'package:contacts_app/model/theme_model.dart';
 import 'package:contacts_app/view/contact/contact_edit_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -73,10 +74,16 @@ class ContactTile extends StatelessWidget {
   Hero _buildCircleAvatar(Contact displayedContact) {
     return Hero(
       tag: 'contact_avatar_${contacts.email}',
-      child: CircleAvatar(
-        backgroundColor: Colors.teal.shade50,
-        foregroundColor: Colors.teal,
-        child: Text(displayedContact.name[0]),
+      child: Consumer<ThemeModel>(
+        builder:
+            (context, themeModel, child) => CircleAvatar(
+              backgroundColor:
+                  themeModel.isDark
+                      ? Colors.grey.shade800
+                      : Colors.teal.shade50,
+              foregroundColor: Colors.teal,
+              child: Text(displayedContact.name[0]),
+            ),
       ),
     );
   }

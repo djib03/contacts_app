@@ -1,12 +1,17 @@
 import 'package:contacts_app/model/contact_model.dart';
+import 'package:contacts_app/model/theme_model.dart';
 import 'package:flutter/material.dart';
 import 'view/contacts_list/contact_list_page.dart';
 import 'package:provider/provider.dart';
+import 'theme/app_theme.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => ContactModel(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ContactModel()),
+        ChangeNotifierProvider(create: (_) => ThemeModel()),
+      ],
       child: const MainApp(),
     ),
   );
@@ -17,23 +22,12 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeModel = Provider.of<ThemeModel>(context);
     return MaterialApp(
       title: "Contacts",
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
-        inputDecorationTheme: InputDecorationTheme(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(color: Colors.teal),
-          ),
-          floatingLabelStyle: TextStyle(color: Colors.teal),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(color: Colors.teal, width: 2),
-          ),
-        ),
-      ),
-
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+      themeMode: themeModel.mode,
       home: ContactListPage(),
     );
   }

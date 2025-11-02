@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:contacts_app/data/contact.dart';
 import 'package:contacts_app/model/contact_model.dart';
+import 'package:contacts_app/model/theme_model.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -28,15 +29,18 @@ class _ContactFormState extends State<ContactForm> {
 
   bool get isEditing => widget.editedContact != null;
 
-  Future<void> _pickImage(ImageSource source) async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? pickedFile = await _picker.pickImage(source: source);
+  void _pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? imagefile = await picker.pickImage(
+      source: ImageSource.gallery,
+    );
 
-    if (pickedFile != null) {
+    if (imagefile != null) {
       setState(() {
-        _pickedImage = File(pickedFile.path);
+        _pickedImage = File(imagefile.path);
       });
       // You can now use _pickedImage for display or upload
+      print('Image selected: ${_pickedImage!.path}');
     }
   }
 
@@ -120,23 +124,34 @@ class _ContactFormState extends State<ContactForm> {
     // provide a sensible default if the contact or its name is null/empty.
     final name = widget.editedContact?.name;
     final initial = (name != null && name.isNotEmpty) ? name[0] : '';
-    return Hero(
-      tag: 'contact_avatar_${widget.editedContact?.email}',
-      child: CircleAvatar(
-        backgroundColor: Colors.teal.shade50,
-        foregroundColor: Colors.teal,
-        radius: halfScreenDiameter / 2,
-        child:
-            name != null && name.isNotEmpty
-                ? Text(
-                  initial,
-                  style: TextStyle(fontSize: halfScreenDiameter / 2),
-                )
-                : Icon(
-                  Icons.person,
-                  size: halfScreenDiameter / 2,
-                  color: Colors.teal,
-                ),
+    return GestureDetector(
+      onTap: () {
+        _pickImage();
+      },
+      child: Hero(
+        tag: 'contact_avatar_${widget.editedContact?.email}',
+        child: Consumer<ThemeModel>(
+          builder:
+              (context, themeModel, child) => CircleAvatar(
+                backgroundColor:
+                    themeModel.isDark
+                        ? Colors.grey.shade800
+                        : Colors.teal.shade50,
+                foregroundColor: Colors.teal,
+                radius: halfScreenDiameter / 2,
+                child:
+                    name != null && name.isNotEmpty
+                        ? Text(
+                          initial,
+                          style: TextStyle(fontSize: halfScreenDiameter / 2),
+                        )
+                        : Icon(
+                          Icons.person,
+                          size: halfScreenDiameter / 2,
+                          color: Colors.teal,
+                        ),
+              ),
+        ),
       ),
     );
   }

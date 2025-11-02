@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'widget/contact_tile.dart';
 import 'package:contacts_app/model/contact_model.dart';
+import 'package:contacts_app/model/theme_model.dart';
 
 class ContactListPage extends StatefulWidget {
   const ContactListPage({super.key});
@@ -19,6 +20,23 @@ class _ContactListPageState extends State<ContactListPage> {
       appBar: AppBar(
         title: const Text("Contacts", style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.teal,
+        actions: [
+          // Theme toggle
+          Consumer<ThemeModel>(
+            builder:
+                (context, themeModel, _) => IconButton(
+                  tooltip:
+                      themeModel.isDark
+                          ? 'Activer le thème clair'
+                          : 'Activer le thème sombre',
+                  icon: Icon(
+                    themeModel.isDark ? Icons.wb_sunny : Icons.nights_stay,
+                    color: Colors.white,
+                  ),
+                  onPressed: () => themeModel.toggle(),
+                ),
+          ),
+        ],
       ),
       body: ListView.builder(
         itemCount: contactModel.contacts.length,
