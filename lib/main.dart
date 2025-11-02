@@ -1,6 +1,6 @@
 import 'package:contacts_app/model/contact_model.dart';
 import 'package:flutter/material.dart';
-import 'ui/contacts_list/contact_list_page.dart';
+import 'view/contacts_list/contact_list_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {

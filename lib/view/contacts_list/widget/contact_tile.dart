@@ -1,6 +1,6 @@
 import 'package:contacts_app/data/contact.dart';
 import 'package:contacts_app/model/contact_model.dart';
-import 'package:contacts_app/ui/contact/contact_edit_page.dart';
+import 'package:contacts_app/view/contact/contact_edit_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';

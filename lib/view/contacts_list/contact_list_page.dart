@@ -1,4 +1,4 @@
-import 'package:contacts_app/ui/contact/contact_create_page.dart';
+import 'package:contacts_app/view/contact/contact_create_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'widget/contact_tile.dart';
