@@ -16,6 +16,7 @@ class ContactEditPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
         title: Text('Modifier contact'),
         backgroundColor: Colors.teal,
       ),

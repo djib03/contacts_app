@@ -38,9 +38,16 @@ class ContactTile extends StatelessWidget {
       ),
 
       child: ListTile(
-        title: Text(contacts.name, style: TextStyle(fontSize: 24)),
+        title: Text(contacts.name, style: TextStyle(fontSize: 20)),
         subtitle: Text(contacts.email),
-        leading: CircleAvatar(child: Text(contacts.name[0])),
+        //display first letter of name in circle avatar
+        leading: _buildCircleAvatar(
+          Contact(
+            name: contacts.name,
+            email: contacts.email,
+            phoneNumber: contacts.phoneNumber,
+          ),
+        ),
         trailing: IconButton(
           icon: Icon(
             contacts.isFavorite ? Icons.star : Icons.star_border,
@@ -59,6 +66,17 @@ class ContactTile extends StatelessWidget {
             ),
           );
         },
+      ),
+    );
+  }
+
+  Hero _buildCircleAvatar(Contact displayedContact) {
+    return Hero(
+      tag: 'contact_avatar_${contacts.email}',
+      child: CircleAvatar(
+        backgroundColor: Colors.teal.shade50,
+        foregroundColor: Colors.teal,
+        child: Text(displayedContact.name[0]),
       ),
     );
   }

@@ -8,6 +8,7 @@ class ContactCreatePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
         title: Text('Ajouter nouveau contact'),
         backgroundColor: Colors.teal,
       ),
