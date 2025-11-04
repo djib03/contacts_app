@@ -1,4 +1,4 @@
-import 'package:contacts_app/data/contact.dart';
+import 'package:contacts_app/model/contact.dart';
 import 'package:contacts_app/view/contact/widget/contact_form.dart';
 import 'package:flutter/material.dart';
 

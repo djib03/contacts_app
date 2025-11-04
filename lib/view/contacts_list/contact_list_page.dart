@@ -2,8 +2,8 @@ import 'package:contacts_app/view/contact/contact_create_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'widget/contact_tile.dart';
-import 'package:contacts_app/model/contact_model.dart';
-import 'package:contacts_app/model/theme_model.dart';
+import 'package:contacts_app/controller/contact_fake_data.dart';
+import 'package:contacts_app/controller/theme_controller.dart';
 
 class ContactListPage extends StatefulWidget {
   const ContactListPage({super.key});

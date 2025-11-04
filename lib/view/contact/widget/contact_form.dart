@@ -1,7 +1,7 @@
 import 'dart:io';
-import 'package:contacts_app/data/contact.dart';
-import 'package:contacts_app/model/contact_model.dart';
-import 'package:contacts_app/model/theme_model.dart';
+import 'package:contacts_app/model/contact.dart';
+import 'package:contacts_app/controller/contact_fake_data.dart';
+import 'package:contacts_app/controller/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +40,6 @@ class _ContactFormState extends State<ContactForm> {
         _pickedImage = File(imagefile.path);
       });
       // You can now use _pickedImage for display or upload
-      print('Image selected: ${_pickedImage!.path}');
     }
   }
 
@@ -140,16 +139,26 @@ class _ContactFormState extends State<ContactForm> {
                 foregroundColor: Colors.teal,
                 radius: halfScreenDiameter / 2,
                 child:
-                    name != null && name.isNotEmpty
+                    isEditing && _pickedImage == null
                         ? Text(
                           initial,
                           style: TextStyle(fontSize: halfScreenDiameter / 2),
                         )
-                        : Icon(
-                          Icons.person,
-                          size: halfScreenDiameter / 2,
-                          color: Colors.teal,
-                        ),
+                        : (_pickedImage != null
+                            ? ClipRRect(
+                              borderRadius: BorderRadius.circular(90),
+                              child: Image.file(
+                                _pickedImage!,
+                                width: halfScreenDiameter,
+                                height: halfScreenDiameter,
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                            : Icon(
+                              Icons.person,
+                              size: halfScreenDiameter / 2,
+                              color: Colors.teal,
+                            )),
               ),
         ),
       ),

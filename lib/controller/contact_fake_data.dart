@@ -1,6 +1,6 @@
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
-import 'package:contacts_app/data/contact.dart';
+import 'package:contacts_app/model/contact.dart';
 
 class ContactModel extends ChangeNotifier {
   final List<Contact> _contacts = List.generate(5, (index) {

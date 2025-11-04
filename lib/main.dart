@@ -1,5 +1,5 @@
-import 'package:contacts_app/model/contact_model.dart';
-import 'package:contacts_app/model/theme_model.dart';
+import 'package:contacts_app/controller/contact_fake_data.dart';
+import 'package:contacts_app/controller/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'view/contacts_list/contact_list_page.dart';
 import 'package:provider/provider.dart';

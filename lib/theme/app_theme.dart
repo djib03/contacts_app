@@ -38,6 +38,7 @@ class AppTheme {
     // Champs de texte
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
+      // ignore: deprecated_member_use
       fillColor: Colors.grey.withOpacity(0.08),
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
       floatingLabelStyle: TextStyle(color: Colors.tealAccent.shade100),
