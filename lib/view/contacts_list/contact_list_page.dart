@@ -52,6 +52,8 @@ class _ContactListPageState extends State<ContactListPage> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.teal,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+
         onPressed: () {
           Navigator.of(
             context,

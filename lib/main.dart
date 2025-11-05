@@ -1,7 +1,7 @@
 import 'package:contacts_app/controller/contact_fake_data.dart';
 import 'package:contacts_app/controller/theme_controller.dart';
+import 'package:contacts_app/view/auth/Login_choice.dart';
 import 'package:flutter/material.dart';
-import 'view/contacts_list/contact_list_page.dart';
 import 'package:provider/provider.dart';
 import 'theme/app_theme.dart';
 
@@ -28,7 +28,7 @@ class MainApp extends StatelessWidget {
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: themeModel.mode,
-      home: ContactListPage(),
+      home: LoginChoice(),
     );
   }
 }
