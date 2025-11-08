@@ -112,29 +112,38 @@ class _ContactListPageState extends State<ContactListPage> {
         ),
         title:
             _isSearching
-                ? TextField(
-                  controller: _searchController,
-                  autofocus: true,
-
-                  style: TextStyle(
-                    fontSize: 16,
-                    color:
-                        themeModel.isDark ? Colors.white : Colors.grey.shade900,
-                  ),
-                  decoration: InputDecoration(
-                    hintText: 'Rechercher un contact...',
-
-                    hintStyle: TextStyle(
+                ? SizedBox(
+                  width: double.infinity,
+                  height: 40,
+                  child: TextField(
+                    controller: _searchController,
+                    autofocus: true,
+                    style: TextStyle(
+                      fontSize: 14,
                       color:
                           themeModel.isDark
-                              ? Colors.grey.shade500
-                              : Colors.grey.shade400,
+                              ? Colors.white
+                              : Colors.grey.shade900,
                     ),
-                    border: InputBorder.none,
+                    decoration: InputDecoration(
+                      // isDense: true,
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: 1,
+                        horizontal: 9,
+                      ),
+                      hintText: 'Rechercher un contact...',
+                      hintStyle: TextStyle(
+                        color:
+                            themeModel.isDark
+                                ? Colors.grey.shade500
+                                : Colors.grey.shade400,
+                      ),
+                      border: InputBorder.none,
+                    ),
+                    onChanged: (value) {
+                      setState(() => _searchQuery = value);
+                    },
                   ),
-                  onChanged: (value) {
-                    setState(() => _searchQuery = value);
-                  },
                 )
                 : Text(
                   "Mes contacts",

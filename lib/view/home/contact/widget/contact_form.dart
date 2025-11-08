@@ -54,6 +54,19 @@ class _ContactFormState extends State<ContactForm> {
           children: <Widget>[
             SizedBox(height: 20),
             _buildContactPicture(),
+
+            Center(
+              child: TextButton(
+                onPressed: () {
+                  _pickImage();
+                },
+
+                child:
+                    isEditing && _pickedImage == null
+                        ? Text("Modifier une photo")
+                        : Text("Ajouter la photo"),
+              ),
+            ),
             SizedBox(height: 20),
             TextFormField(
               validator: Validators.validateName,
@@ -124,44 +137,39 @@ class _ContactFormState extends State<ContactForm> {
     // provide a sensible default if the contact or its name is null/empty.
     final name = widget.editedContact?.name;
     final initial = (name != null && name.isNotEmpty) ? name[0] : '';
-    return GestureDetector(
-      onTap: () {
-        _pickImage();
-      },
-      child: Hero(
-        tag: 'contact_avatar_${widget.editedContact?.email}',
-        child: Consumer<ThemeModel>(
-          builder:
-              (context, themeModel, child) => CircleAvatar(
-                backgroundColor:
-                    themeModel.isDark
-                        ? Colors.grey.shade800
-                        : Colors.teal.shade50,
-                foregroundColor: Colors.teal,
-                radius: halfScreenDiameter / 2,
-                child:
-                    isEditing && _pickedImage == null
-                        ? Text(
-                          initial,
-                          style: TextStyle(fontSize: halfScreenDiameter / 2),
-                        )
-                        : (_pickedImage != null
-                            ? ClipRRect(
-                              borderRadius: BorderRadius.circular(90),
-                              child: Image.file(
-                                _pickedImage!,
-                                width: halfScreenDiameter,
-                                height: halfScreenDiameter,
-                                fit: BoxFit.cover,
-                              ),
-                            )
-                            : Icon(
-                              Icons.person,
-                              size: halfScreenDiameter / 2,
-                              color: Colors.teal,
-                            )),
-              ),
-        ),
+    return Hero(
+      tag: 'contact_avatar_${widget.editedContact?.email}',
+      child: Consumer<ThemeModel>(
+        builder:
+            (context, themeModel, child) => CircleAvatar(
+              backgroundColor:
+                  themeModel.isDark
+                      ? Colors.grey.shade800
+                      : Colors.teal.shade50,
+              foregroundColor: Colors.teal,
+              radius: halfScreenDiameter / 2,
+              child:
+                  isEditing && _pickedImage == null
+                      ? Text(
+                        initial,
+                        style: TextStyle(fontSize: halfScreenDiameter / 2),
+                      )
+                      : (_pickedImage != null
+                          ? ClipRRect(
+                            borderRadius: BorderRadius.circular(90),
+                            child: Image.file(
+                              _pickedImage!,
+                              width: halfScreenDiameter,
+                              height: halfScreenDiameter,
+                              fit: BoxFit.cover,
+                            ),
+                          )
+                          : Icon(
+                            Icons.person,
+                            size: halfScreenDiameter / 2,
+                            color: Colors.teal,
+                          )),
+            ),
       ),
     );
   }

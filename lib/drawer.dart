@@ -28,6 +28,7 @@ class _ModernDrawerState extends State<ModernDrawer> {
         children: [
           // En-tête du drawer
           Container(
+            width: double.infinity,
             padding: const EdgeInsets.fromLTRB(24, 60, 24, 24),
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -39,42 +40,44 @@ class _ModernDrawerState extends State<ModernDrawer> {
                         : [Colors.teal, Colors.teal.shade700],
               ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 70,
-                  height: 70,
-                  decoration: BoxDecoration(
-                    // ignore: deprecated_member_use
-                    color: Colors.white.withOpacity(0.2),
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.white, width: 2),
+            child: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 70,
+                    height: 70,
+                    decoration: BoxDecoration(
+                      // ignore: deprecated_member_use
+                      color: Colors.white.withOpacity(0.2),
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white, width: 2),
+                    ),
+                    child: const Icon(
+                      Icons.person,
+                      size: 35,
+                      color: Colors.white,
+                    ),
                   ),
-                  child: const Icon(
-                    Icons.person,
-                    size: 35,
-                    color: Colors.white,
+                  const SizedBox(height: 16),
+                  const Text(
+                    'John Doe',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 16),
-                const Text(
-                  'John Doe',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
+                  const SizedBox(height: 4),
+                  Text(
+                    'john.doe@email.com',
+                    style: TextStyle(
+                      color: Colors.white.withOpacity(0.9),
+                      fontSize: 14,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'john.doe@email.com',
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.9),
-                    fontSize: 14,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
 
@@ -104,7 +107,7 @@ class _ModernDrawerState extends State<ModernDrawer> {
                 _buildMenuItem(
                   context,
                   icon: Icons.person_rounded,
-                  title: 'Profile',
+                  title: 'Profil',
                   value: 'profile',
                   isDark: isDark,
                 ),
@@ -240,16 +243,21 @@ class _ModernDrawerState extends State<ModernDrawer> {
   }
 
   void _navigateToPage(String page) {
-    // Implémentez votre logique de navigation ici
-    // Par exemple :
-    // if (page == 'contacts') {
-    //   Navigator.pushReplacementNamed(context, '/contacts');
-    // } else if (page == 'favorites') {
-    //   Navigator.pushReplacementNamed(context, '/favorites');
-    // } else if (page == 'profile') {
-    //   Navigator.pushReplacementNamed(context, '/profile');
-    // }
-    print('Navigation vers: $page');
+    // Mappez vos clés vers des routes nommées
+    final route =
+        (page == 'favorites')
+            ? '/favorites'
+            : (page == 'profile')
+            ? '/profile'
+            : '/contacts';
+
+    Navigator.pop(context); // ferme le drawer
+
+    // Si vous voulez remplacer la page courante (pour les sections principales)
+    Navigator.pushReplacementNamed(context, route);
+
+    // Si vous préférez empiler la page sur la pile de navigation, utiliser :
+    // Navigator.pushNamed(context, route);
   }
 
   void _showLogoutDialog(BuildContext context) {

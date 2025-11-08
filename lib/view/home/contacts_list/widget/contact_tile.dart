@@ -24,6 +24,24 @@ class ContactTile extends StatelessWidget {
     return Column(
       children: [
         Slidable(
+          startActionPane: ActionPane(
+            motion: const DrawerMotion(),
+            children: [
+              SlidableAction(
+                onPressed: (context) {
+                  // Appeler contact
+                },
+                backgroundColor:
+                    themeModel.isDark
+                        ? Colors.green.shade900
+                        : Colors.green.shade100,
+                foregroundColor: Colors.green.shade100,
+                icon: Icons.call,
+                label: 'Appeler',
+                borderRadius: BorderRadius.circular(6),
+              ),
+            ],
+          ),
           endActionPane: ActionPane(
             motion: const DrawerMotion(),
             children: [
@@ -36,12 +54,12 @@ class ContactTile extends StatelessWidget {
                 },
                 backgroundColor:
                     themeModel.isDark
-                        ? Colors.grey.shade900
-                        : Colors.grey.shade50,
+                        ? const Color.fromARGB(255, 84, 17, 17)
+                        : Colors.red.shade100,
                 foregroundColor: Colors.red.shade600,
                 icon: Icons.delete_outline,
                 label: 'Supprimer',
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(6),
               ),
             ],
           ),
@@ -73,8 +91,8 @@ class ContactTile extends StatelessWidget {
                     _buildCircleAvatar(
                       Contact(
                         name: contacts.name,
-                        email: contacts.email,
                         phoneNumber: contacts.phoneNumber,
+                        email: contacts.email,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -98,7 +116,7 @@ class ContactTile extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            contacts.email,
+                            contacts.phoneNumber,
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w400,

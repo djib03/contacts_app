@@ -1,5 +1,6 @@
 import 'package:contacts_app/view/auth/login_screen_email.dart';
 import 'package:contacts_app/view/auth/signup_screen.dart';
+import 'package:contacts_app/view/home/contacts_list/contact_list_page.dart';
 import 'package:flutter/material.dart';
 import 'login_screen_phone_number.dart';
 
@@ -43,7 +44,7 @@ class LoginChoice extends StatelessWidget {
                 style: TextStyle(fontSize: 14, color: Colors.grey[700]),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 40),
+              SizedBox(height: 30),
 
               // button Connexion avec le numéro de téléphone
               ElevatedButton.icon(
@@ -115,6 +116,16 @@ class LoginChoice extends StatelessWidget {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+        backgroundColor: Colors.teal,
+        onPressed: () {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => ContactListPage()),
+          );
+        },
+        child: Icon(Icons.arrow_forward_ios, color: Colors.white),
       ),
     );
   }
