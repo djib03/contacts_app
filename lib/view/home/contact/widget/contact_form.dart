@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:contacts_app/model/contact.dart';
 import 'package:contacts_app/controller/contact_fake_data.dart';
 import 'package:contacts_app/controller/theme_controller.dart';
+import 'package:contacts_app/util/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -55,7 +56,7 @@ class _ContactFormState extends State<ContactForm> {
             _buildContactPicture(),
             SizedBox(height: 20),
             TextFormField(
-              validator: _validateName,
+              validator: Validators.validateName,
               initialValue: widget.editedContact?.name,
               decoration: InputDecoration(
                 labelText: 'Nom',
@@ -67,7 +68,7 @@ class _ContactFormState extends State<ContactForm> {
             ),
             SizedBox(height: 10),
             TextFormField(
-              validator: _validateEmail,
+              validator: Validators.validateEmail,
               initialValue: widget.editedContact?.email,
               decoration: InputDecoration(
                 labelText: 'Email',
@@ -79,7 +80,7 @@ class _ContactFormState extends State<ContactForm> {
             ),
             SizedBox(height: 10),
             TextFormField(
-              validator: _validatePhoneNumber,
+              validator: Validators.validatePhone,
               initialValue: widget.editedContact?.phoneNumber,
               decoration: InputDecoration(
                 labelText: 'Numéro de téléphone',
@@ -163,40 +164,6 @@ class _ContactFormState extends State<ContactForm> {
         ),
       ),
     );
-  }
-
-  //validators either return null or error message
-  //if the value is not valid, return an error message
-  String? _validateName(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Le nom est requis';
-    }
-    return null;
-  }
-
-  String? _validateEmail(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'L\'email est requis';
-    }
-    //regex for email validation
-    final emailRegex = RegExp(
-      r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
-    );
-    if (!emailRegex.hasMatch(value)) {
-      return 'L\'email n\'est pas valide';
-    }
-    return null;
-  }
-
-  String? _validatePhoneNumber(String? value) {
-    // Regex for phone number validation (simple version)
-    final phoneRegex = RegExp(
-      r'^\+?\d{1,3}[ .-]?\(?\d{1,4}\)?([ .-]?\d{2,4}){2,4}$',
-    );
-    if (!phoneRegex.hasMatch(value!)) {
-      return 'Le numéro de téléphone n\'est pas valide';
-    }
-    return null;
   }
 
   void onSaveContactButtonPressed() {

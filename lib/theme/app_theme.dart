@@ -2,57 +2,39 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   // ============ COULEURS PERSONNALISÉES ============
-  // Vous pouvez modifier ces couleurs en un seul endroit
   static const Color primaryColor = Colors.teal;
-  static const Color accentColor = Color(0xFF64FFDA); // tealAccent
+  static const Color accentColor = Color(0xFF64FFDA);
   static const Color darkBackground = Color(0xFF1E1E1E);
   static const Color darkSurface = Color(0xFF2A2A2A);
   static const Color lightBackground = Color(0xFFF5F5F5);
 
-  // ============ STYLES DE TEXTE RÉUTILISABLES ============
-  static const TextStyle heading1 = TextStyle(
-    fontSize: 24,
-    fontWeight: FontWeight.bold,
-  );
-
-  static const TextStyle heading2 = TextStyle(
-    fontSize: 20,
-    fontWeight: FontWeight.w600,
-  );
-
-  static const TextStyle bodyText = TextStyle(fontSize: 16);
-
-  static const TextStyle caption = TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w300,
-  );
-
-  // ============ ESPACEMENTS STANDARD ============
-  static const double paddingSmall = 8.0;
-  static const double paddingMedium = 16.0;
-  static const double paddingLarge = 24.0;
-
-  static const double radiusSmall = 8.0;
-  static const double radiusMedium = 12.0;
-  static const double radiusLarge = 16.0;
-
   // ============ THÈME CLAIR ============
   static ThemeData get light => ThemeData(
     brightness: Brightness.light,
+    useMaterial3: false,
+
     colorScheme: ColorScheme.fromSeed(
       seedColor: primaryColor,
       brightness: Brightness.light,
     ),
+
     scaffoldBackgroundColor: lightBackground,
     primaryColor: primaryColor,
-    useMaterial3: false,
+
+    // IMPORTANT: Définir explicitement la typographie
+    typography: Typography.material2021(platform: TargetPlatform.android),
 
     appBarTheme: AppBarTheme(
-      backgroundColor: primaryColor,
-      foregroundColor: Colors.white,
-      elevation: 2,
+      backgroundColor: lightBackground,
+      foregroundColor: Colors.black,
+
+      elevation: 0,
+      // Forcer la même hauteur
+      toolbarHeight: kToolbarHeight,
     ),
 
+    // Désactiver le facteur d'échelle du texte
+    // textTheme: ThemeData.light().textTheme.apply(fontSizeFactor: 1.0),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: primaryColor,
       foregroundColor: Colors.white,
@@ -62,21 +44,19 @@ class AppTheme {
       style: ElevatedButton.styleFrom(
         backgroundColor: primaryColor,
         foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(radiusSmall),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+        textStyle: const TextStyle(fontSize: 16),
       ),
     ),
 
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: Colors.grey.shade100,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(radiusSmall),
-      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(radiusSmall),
+        borderRadius: BorderRadius.circular(8.0),
         borderSide: BorderSide(color: primaryColor, width: 2),
       ),
     ),
@@ -84,26 +64,36 @@ class AppTheme {
     cardTheme: CardTheme(
       color: Colors.white,
       elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(radiusSmall),
-      ),
+      margin: const EdgeInsets.all(8),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
     ),
   );
 
   // ============ THÈME SOMBRE ============
-  static ThemeData get dark => ThemeData.dark().copyWith(
+  static ThemeData get dark => ThemeData(
     brightness: Brightness.dark,
+    useMaterial3: false,
+
     colorScheme: ColorScheme.fromSeed(
       seedColor: primaryColor,
       brightness: Brightness.dark,
     ),
+
     scaffoldBackgroundColor: darkBackground,
     primaryColor: primaryColor,
+    cardColor: darkSurface,
 
+    // IMPORTANT: Utiliser la MÊME typographie que le thème clair
+    typography: Typography.material2021(platform: TargetPlatform.android),
+
+    // Désactiver le facteur d'échelle du texte
+    // textTheme: ThemeData.dark().textTheme.apply(fontSizeFactor: 1.0),
     appBarTheme: AppBarTheme(
-      backgroundColor: Colors.teal.shade900,
+      backgroundColor: darkBackground,
       foregroundColor: Colors.white,
       elevation: 0,
+      // Forcer la même hauteur
+      toolbarHeight: kToolbarHeight,
     ),
 
     floatingActionButtonTheme: FloatingActionButtonThemeData(
@@ -111,46 +101,33 @@ class AppTheme {
       foregroundColor: Colors.black,
     ),
 
+    // MÊME configuration que le thème clair
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: primaryColor,
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(radiusSmall),
-        ),
+        backgroundColor: accentColor,
+        foregroundColor: Colors.black,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+        textStyle: const TextStyle(fontSize: 16),
       ),
     ),
 
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: Colors.grey.withOpacity(0.08),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(radiusSmall),
-      ),
+      fillColor: darkSurface,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(radiusSmall),
+        borderRadius: BorderRadius.circular(8.0),
         borderSide: BorderSide(color: accentColor, width: 2),
       ),
-      floatingLabelStyle: const TextStyle(color: accentColor),
     ),
 
-    cardColor: darkSurface,
     cardTheme: CardTheme(
       color: darkSurface,
-      elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(radiusSmall),
-      ),
-    ),
-
-    iconTheme: const IconThemeData(color: accentColor),
-
-    textTheme: const TextTheme(
-      bodyLarge: TextStyle(color: Colors.white),
-      bodyMedium: TextStyle(color: Colors.white70),
-      titleLarge: TextStyle(color: Colors.white),
-      titleMedium: TextStyle(color: Colors.white),
+      elevation: 2,
+      margin: const EdgeInsets.all(8),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
     ),
   );
 }

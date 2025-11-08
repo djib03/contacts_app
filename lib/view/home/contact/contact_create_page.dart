@@ -1,4 +1,4 @@
-import 'package:contacts_app/view/contact/widget/contact_form.dart';
+import 'package:contacts_app/view/home/contact/widget/contact_form.dart';
 import 'package:flutter/material.dart';
 
 class ContactCreatePage extends StatelessWidget {
