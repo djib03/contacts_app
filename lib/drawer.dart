@@ -3,12 +3,16 @@ import 'package:flutter/material.dart';
 class ModernDrawer extends StatefulWidget {
   final Function(bool) onThemeChanged;
   final bool isDarkMode;
+  final String currentPage;
+  final Function(String) onPageSelected;
 
   const ModernDrawer({
-    Key? key,
+    super.key,
     required this.onThemeChanged,
     required this.isDarkMode,
-  }) : super(key: key);
+    required this.currentPage,
+    required this.onPageSelected,
+  });
 
   @override
   State<ModernDrawer> createState() => _ModernDrawerState();
@@ -27,61 +31,49 @@ class _ModernDrawerState extends State<ModernDrawer> {
       child: Column(
         children: [
           // En-tête du drawer
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.fromLTRB(24, 60, 24, 24),
+          DrawerHeader(
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors:
-                    isDark
-                        ? [Colors.teal.shade900, Colors.teal.shade700]
-                        : [Colors.teal, Colors.teal.shade700],
+                isDark
+                    ? [Colors.teal.shade900, Colors.teal.shade700]
+                    : [Colors.teal, Colors.teal.shade700],
               ),
             ),
             child: Center(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 70,
-                    height: 70,
-                    decoration: BoxDecoration(
-                      // ignore: deprecated_member_use
-                      color: Colors.white.withOpacity(0.2),
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white, width: 2),
-                    ),
-                    child: const Icon(
-                      Icons.person,
-                      size: 35,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'John Doe',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'john.doe@email.com',
-                    style: TextStyle(
-                      color: Colors.white.withOpacity(0.9),
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+              Container(
+             decoration: BoxDecoration(
+               shape: BoxShape.circle,
+               border: Border.all(color: Colors.white),
+               color: Colors.white,
+             ),
+                child: CircleAvatar(
+                  backgroundColor: Colors.teal,
 
-          // Menu items
+
+                radius: 30,
+                child: Icon(Icons.person),
+                            ),
+              ),
+            SizedBox(height: 10),
+            Text(
+                'Nom de l\'utilisateur',
+            style: TextStyle(color: Colors.white, fontSize: 18),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    ),
+    ),
+
+    // Menu items
           Expanded(
             child: ListView(
               padding: const EdgeInsets.symmetric(vertical: 8),
@@ -194,12 +186,13 @@ class _ModernDrawerState extends State<ModernDrawer> {
     required String value,
     required bool isDark,
   }) {
-    final isSelected = selectedItem == value;
+    final isSelected = widget.currentPage == value;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       child: Container(
         decoration: BoxDecoration(
+
           color:
               isSelected
                   ? (isDark
@@ -242,23 +235,20 @@ class _ModernDrawerState extends State<ModernDrawer> {
     );
   }
 
+// dart
   void _navigateToPage(String page) {
-    // Mappez vos clés vers des routes nommées
-    final route =
-        (page == 'favorites')
-            ? '/favorites'
-            : (page == 'profile')
-            ? '/profile'
-            : '/contacts';
+    final route = (page == 'favorites') ? '/favorites' :
+    (page == 'profile')   ? '/profile'   : '/contacts';
 
-    Navigator.pop(context); // ferme le drawer
-
-    // Si vous voulez remplacer la page courante (pour les sections principales)
-    Navigator.pushReplacementNamed(context, route);
-
-    // Si vous préférez empiler la page sur la pile de navigation, utiliser :
-    // Navigator.pushNamed(context, route);
+    if (page == 'contacts') {
+      // Pour la page contacts, vider la pile et la mettre comme seule base
+      Navigator.pushNamedAndRemoveUntil(context, route, (route) => false);
+    } else {
+      // Pour les autres pages, garder contacts en dessous
+      Navigator.pushReplacementNamed(context, route);
+    }
   }
+
 
   void _showLogoutDialog(BuildContext context) {
     final isDark = widget.isDarkMode;

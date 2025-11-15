@@ -197,8 +197,10 @@ class _ContactListPageState extends State<ContactListPage> {
           Provider.of<ThemeModel>(context, listen: false).toggle();
         },
         isDarkMode: themeModel.isDark,
-      ),
+        currentPage: 'contacts',
+        onPageSelected: (page) {},
 
+      ),
       body:
           !hasContacts
               ? _buildEmptyState(themeModel)
@@ -206,7 +208,6 @@ class _ContactListPageState extends State<ContactListPage> {
                 children: [
                   // Filtres
                   _buildFilterChips(themeModel),
-
                   // Liste
                   Expanded(
                     child:

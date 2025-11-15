@@ -21,6 +21,8 @@ class _FavoriteContactPageState extends State<FavoriteContactPage> {
           Provider.of<ThemeModel>(context, listen: false).toggle();
         },
         isDarkMode: themeModel.isDark,
+        currentPage: 'favorites',
+        onPageSelected: (page) {},
       ),
       body: Center(child: Text("Page des contacts favoris")),
     );

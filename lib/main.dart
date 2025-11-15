@@ -29,7 +29,6 @@ class MainApp extends StatelessWidget {
     final themeModel = Provider.of<ThemeModel>(context);
     return MaterialApp(
       title: "Contacts",
-      initialRoute: '/contacts',
       routes: {
         '/contacts': (ctx) => const ContactListPage(),
         '/favorites': (ctx) => const FavoriteContactPage(),
@@ -40,6 +39,7 @@ class MainApp extends StatelessWidget {
       darkTheme: AppTheme.dark,
       themeMode: themeModel.mode,
       home: LoginChoice(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
