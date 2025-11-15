@@ -1,5 +1,5 @@
 import 'package:contacts_app/controller/theme_controller.dart';
-import 'package:contacts_app/drawer.dart';
+import 'package:contacts_app/view/home/drawer.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +21,8 @@ class _FavoriteContactPageState extends State<FavoriteContactPage> {
           Provider.of<ThemeModel>(context, listen: false).toggle();
         },
         isDarkMode: themeModel.isDark,
+        currentPage: '',
+        onPageSelected: (page) {},
       ),
       body: Center(child: Text("Page des contacts favoris")),
     );

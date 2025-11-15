@@ -27,6 +27,17 @@ class _ContactFormState extends State<ContactForm> {
   String? _name;
   String? _email;
   String? _phoneNumber;
+  List<String?> _phoneNumbers = [];
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.editedContact != null) {
+      _phoneNumbers = [widget.editedContact!.phoneNumber];
+    } else {
+      _phoneNumbers = [''];
+    }
+  }
 
   bool get isEditing => widget.editedContact != null;
 
@@ -92,17 +103,52 @@ class _ContactFormState extends State<ContactForm> {
               onSaved: (value) => _email = value,
             ),
             SizedBox(height: 10),
-            TextFormField(
-              validator: Validators.validatePhone,
-              initialValue: widget.editedContact?.phoneNumber,
-              decoration: InputDecoration(
-                labelText: 'Numéro de téléphone',
-                border: OutlineInputBorder(
+            Column(
+              children: [
+                for (int i = 0; i < _phoneNumbers.length; i++)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: TextFormField(
+                      validator: Validators.validatePhone,
+                      initialValue: _phoneNumbers[i],
+                      decoration: InputDecoration(
+                        labelText:
+                            i == 0 ? 'NumÃ©ro de tÃ©lÃ©phone' : 'Autre numÃ©ro',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                      ),
+                      onSaved: (value) => _phoneNumbers[i] = value,
+                    ),
+                  ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    onPressed: () {
+                      setState(() {
+                        _phoneNumbers.add('');
+                      });
+                    },
+                    child: Text(
+                      "Ajouter un numÃ©ro de tel.",
+                      style: TextStyle(color: Colors.teal, fontSize: 12),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
+                backgroundColor: Colors.teal,
               ),
-              onSaved: (value) => _phoneNumber = value,
+              child: Text("Ajouter un email"),
             ),
+
             SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -125,6 +171,7 @@ class _ContactFormState extends State<ContactForm> {
                 ],
               ),
             ),
+            SizedBox(height: 20),
           ],
         ),
       ),

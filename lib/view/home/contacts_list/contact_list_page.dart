@@ -1,4 +1,4 @@
-import 'package:contacts_app/drawer.dart';
+import 'package:contacts_app/view/home/drawer.dart';
 import 'package:contacts_app/view/home/contact/contact_create_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -50,7 +50,9 @@ class _ContactListPageState extends State<ContactListPage> {
       // Filtre par recherche
       if (_searchQuery.isNotEmpty) {
         if (!contact.name.toLowerCase().contains(_searchQuery.toLowerCase()) &&
-            !contact.email.toLowerCase().contains(_searchQuery.toLowerCase())) {
+            !contact.email!.toLowerCase().contains(
+              _searchQuery.toLowerCase(),
+            )) {
           continue;
         }
       }
@@ -197,6 +199,8 @@ class _ContactListPageState extends State<ContactListPage> {
           Provider.of<ThemeModel>(context, listen: false).toggle();
         },
         isDarkMode: themeModel.isDark,
+        currentPage: '',
+        onPageSelected: (page) {},
       ),
 
       body:

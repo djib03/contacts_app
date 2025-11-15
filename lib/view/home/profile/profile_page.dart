@@ -1,5 +1,5 @@
 import 'package:contacts_app/controller/theme_controller.dart';
-import 'package:contacts_app/drawer.dart';
+import 'package:contacts_app/view/home/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +21,8 @@ class _ProfilePageState extends State<ProfilePage> {
           Provider.of<ThemeModel>(context, listen: false).toggle();
         },
         isDarkMode: themeModel.isDark,
+        currentPage: '',
+        onPageSelected: (String p1) {},
       ),
       body: Center(child: Text("Page de Profil")),
     );

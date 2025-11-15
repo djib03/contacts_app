@@ -91,8 +91,9 @@ class ContactTile extends StatelessWidget {
                     _buildCircleAvatar(
                       Contact(
                         name: contacts.name,
-                        phoneNumber: contacts.phoneNumber,
+
                         email: contacts.email,
+                        phoneNumber: contacts.phoneNumber,
                       ),
                     ),
                     const SizedBox(width: 16),
