@@ -21,8 +21,6 @@ class _ProfilePageState extends State<ProfilePage> {
           Provider.of<ThemeModel>(context, listen: false).toggle();
         },
         isDarkMode: themeModel.isDark,
-        currentPage: 'profile',
-        onPageSelected: (page) {},
       ),
       body: Center(child: Text("Page de Profil")),
     );
